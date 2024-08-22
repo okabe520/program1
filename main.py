@@ -31,6 +31,23 @@ class Rectangle(Shape):
     def get_area(self):
         return self.length * self.width
 
+class Triangle(Shape):
+    def __init__(self, base, height, unit='cm'):
+        super().__init__(unit)
+        self.base = self.to_cm(base)
+        self.height = self.to_cm(height)
+
+    def get_area(self):
+        return 0.5 * self.base * self.height
+
+class Circle(Shape):
+    def __init__(self, diameter, unit='cm'):
+        super().__init__(unit)
+        self.diameter = self.to_cm(diameter)
+        self.radius = self.diameter / 2
+
+    def get_area(self):
+        return math.pi * (self.radius ** 2)
 
 class AreaCalculatorApp:
     def __init__(self, root):
