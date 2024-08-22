@@ -14,6 +14,24 @@ class Shape:
     def get_area(self):
         raise NotImplementedError("Subclasses should implement this method.")
 
+class Square(Shape):
+    def __init__(self, side_length, unit='cm'):
+        super().__init__(unit)
+        self.side_length = self.to_cm(side_length)
+
+    def get_area(self):
+        return self.side_length ** 2
+
+class Rectangle(Shape):
+    def __init__(self, length, width, unit='cm'):
+        super().__init__(unit)
+        self.length = self.to_cm(length)
+        self.width = self.to_cm(width)
+
+    def get_area(self):
+        return self.length * self.width
+
+
 class AreaCalculatorApp:
     def __init__(self, root):
         self.root = root
