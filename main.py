@@ -118,6 +118,42 @@ class AreaCalculatorApp:
             self.diameter_entry = ttk.Entry(self.input_frame)
             self.diameter_entry.grid(row=0, column=1, padx=10, pady=10)
 
+    def calculate_area(self):
+        shape_type = self.shape_var.get()
+        unit = self.unit_var.get()
+
+        try:
+            if shape_type == 'square':
+                side_length = float(self.side_entry.get())
+                if side_length <= 0:
+                    raise ValueError("Side length must be positive.")
+                shape = Square(side_length, unit)
+            elif shape_type == 'rectangle':
+                length = float(self.length_entry.get())
+                width = float(self.width_entry.get())
+                if length <= 0 or width <= 0:
+                    raise ValueError("Length and width must be positive.")
+                shape = Rectangle(length, width, unit)
+            elif shape_type == 'triangle':
+                base = float(self.base_entry.get())
+                height = float(self.height_entry.get())
+                if base <= 0 or height <= 0:
+                    raise ValueError("Base and height must be positive.")
+                shape = Triangle(base, height, unit)
+            elif shape_type == 'circle':
+                diameter = float(self.diameter_entry.get())
+                if diameter <= 0:
+                    raise ValueError("Diameter must be positive.")
+                shape = Circle(diameter, unit)
+            else:
+                self.result_label.config(text="Invalid shape!")
+                return
+
+            area = shape.get_area()
+            self.result_label.config(text=f"Area: {area:.3f} square centimeters")
+
+        except ValueError as e:
+            self.result_label.config(text=str(e))
 
 if __name__ == "__main__":
     root = tk.Tk()
