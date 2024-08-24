@@ -102,28 +102,78 @@ class Rectangle(Shape):
         return self.length * self.width
 
 class Triangle(Shape):
+    """
+    A class representing a triangle.
+
+    Attributes:
+        base (float): The base length of the triangle.
+        height (float): The height of the triangle.
+    """
 
     def __init__(self, base, height, unit='cm'):
+        """
+        Initializes the triangle with a given base, height, and unit.
+
+        Args:
+            base (float): The base length of the triangle.
+            height (float): The height of the triangle.
+            unit (str): The unit of measurement, defaults to 'cm'.
+        """
         super().__init__(unit)
         self.base = self.to_cm(base)
         self.height = self.to_cm(height)
 
     def get_area(self):
+        """
+        Calculates the area of the triangle.
+
+        Returns:
+            float: The area of the triangle.
+        """
         return 0.5 * self.base * self.height
 
 class Circle(Shape):
+    """
+    A class representing a circle.
+
+    Attributes:
+        diameter (float): The diameter of the circle.
+        radius (float): The radius of the circle, derived from the diameter.
+    """
 
     def __init__(self, diameter, unit='cm'):
+        """
+        Initializes the circle with a given diameter and unit.
+
+        Args:
+            diameter (float): The diameter of the circle.
+            unit (str): The unit of measurement, defaults to 'cm'.
+        """
         super().__init__(unit)
         self.diameter = self.to_cm(diameter)
         self.radius = self.diameter / 2
 
     def get_area(self):
+        """
+        Calculates the area of the circle.
+
+        Returns:
+            float: The area of the circle.
+        """
         return math.pi * (self.radius ** 2)
 
 class AreaCalculatorApp:
+    """
+    A GUI application for calculating the area of different shapes.
+    """
 
     def __init__(self, root):
+        """
+        Initializes the application.
+
+        Args:
+            root (tk.Tk): The root window of the application.
+        """
         self.root = root
         self.root.title("Area Calculator")
 
@@ -133,6 +183,9 @@ class AreaCalculatorApp:
         self.create_widgets()
 
     def create_widgets(self):
+        """
+        Creates and arranges the widgets in the application.
+        """
         # Shape selection
         ttk.Label(self.root, text="Choose the shape:").grid(row=0, column=0, padx=10, pady=10)
         shapes = ['square', 'rectangle', 'triangle', 'circle']
@@ -159,6 +212,12 @@ class AreaCalculatorApp:
         self.update_form()
 
     def update_form(self, event=None):
+        """
+        Updates the input fields based on the selected shape.
+
+        Args:
+            event: The event that triggered the update, typically a shape selection.
+        """
         for widget in self.input_frame.winfo_children():
             widget.destroy()
 
@@ -192,6 +251,9 @@ class AreaCalculatorApp:
             self.diameter_entry.grid(row=0, column=1, padx=10, pady=10)
 
     def calculate_area(self):
+        """
+        Calculates the area of the selected shape and displays the result.
+        """
         shape_type = self.shape_var.get()
         unit = self.unit_var.get()
 
