@@ -3,35 +3,106 @@ from tkinter import ttk
 import math
 
 class Shape:
+    """
+    A base class for shapes that calculates area.
+
+    Attributes:
+        unit (str): The unit of measurement, either 'cm' or 'in'.
+    """
+
     def __init__(self, unit='cm'):
+        """
+        Initializes the shape with the given unit.
+
+        Args:
+            unit (str): The unit of measurement, defaults to 'cm'.
+        """
         self.unit = unit
 
     def to_cm(self, value):
+        """
+        Converts the measurement to centimeters if the unit is 'in'.
+
+        Args:
+            value (float): The measurement value.
+
+        Returns:
+            float: The converted measurement in centimeters.
+        """
         if self.unit == 'in':
             return value * 2.54
         return value
 
     def get_area(self):
+        """
+        Calculates the area of the shape. This method should be overridden by subclasses.
+
+        Raises:
+            NotImplementedError: If the method is not implemented in a subclass.
+        """
         raise NotImplementedError("Subclasses should implement this method.")
 
 class Square(Shape):
+    """
+    A class representing a square.
+
+    Attributes:
+        side_length (float): The length of the square's side.
+    """
+
     def __init__(self, side_length, unit='cm'):
+        """
+        Initializes the square with a given side length and unit.
+
+        Args:
+            side_length (float): The length of the square's side.
+            unit (str): The unit of measurement, defaults to 'cm'.
+        """
         super().__init__(unit)
         self.side_length = self.to_cm(side_length)
 
     def get_area(self):
+        """
+        Calculates the area of the square.
+
+        Returns:
+            float: The area of the square.
+        """
         return self.side_length ** 2
 
 class Rectangle(Shape):
+    """
+    A class representing a rectangle.
+
+    Attributes:
+        length (float): The length of the rectangle.
+        width (float): The width of the rectangle.
+    """
+
     def __init__(self, length, width, unit='cm'):
+        """
+        Initializes the rectangle with a given length, width, and unit.
+
+        Args:
+            length (float): The length of the rectangle.
+            width (float): The width of the rectangle.
+            unit (str): The unit of measurement, defaults to 'cm'.
+        """
         super().__init__(unit)
         self.length = self.to_cm(length)
         self.width = self.to_cm(width)
 
     def get_area(self):
+        """
+        Calculates the area of the rectangle.
+
+        Returns:
+            float: The area of the rectangle.
+        """
         return self.length * self.width
 
 class Triangle(Shape):
+
     def __init__(self, base, height, unit='cm'):
         super().__init__(unit)
         self.base = self.to_cm(base)
@@ -41,6 +112,7 @@ class Triangle(Shape):
         return 0.5 * self.base * self.height
 
 class Circle(Shape):
+
     def __init__(self, diameter, unit='cm'):
         super().__init__(unit)
         self.diameter = self.to_cm(diameter)
@@ -50,6 +122,7 @@ class Circle(Shape):
         return math.pi * (self.radius ** 2)
 
 class AreaCalculatorApp:
+
     def __init__(self, root):
         self.root = root
         self.root.title("Area Calculator")
